@@ -9,5 +9,22 @@ public class FamilyController {
 		this.model=model;
 		this.view=view;
 		
+		
+		view.btnAdd.setOnAction(e-> {
+			model.createPerson(view.txtName.getText(),view.txtFather.getText(),view.txtMother.getText() );
+			view.txtArea.appendText(model.updateView());
+		});
+		
+		
+		
 	}
+
+	
+	
+
+	
+	
+	
+	
+	
 }
