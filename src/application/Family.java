@@ -33,7 +33,7 @@ public class Family  {
 	public ArrayList<Person> getMembers(Family family){
 		return household;
 	}
-	
+	 
 	
 
 }
