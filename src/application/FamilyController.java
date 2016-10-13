@@ -19,7 +19,7 @@ public class FamilyController {
 			
 			model.createPerson(view.txtName.getText(),view.txtFather.getText(),view.txtMother.getText(), 
 			 view.tg.getSelectedToggle().getUserData().toString(), view.txtHusband.getText(), view.txtWife.getText(), (Integer.parseInt(view.txtAge.getText())) );
-			view.txtArea.appendText(model.updateView());
+			view.txtArea.appendText(model.updateViewAfterAdd());
 		});
 		// for Radio Buttons
 		view.tg.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
@@ -39,7 +39,9 @@ public class FamilyController {
 			}
 		});
 		
-		
+		view.btnLoad.setOnAction(E-> {
+			model.loadPerson();
+		});
 		
 	}
 

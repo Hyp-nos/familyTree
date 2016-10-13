@@ -1,6 +1,7 @@
 package application;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Person implements Serializable {
 	Person father;
@@ -8,10 +9,13 @@ public class Person implements Serializable {
 	Person husband;
 	Person wife;
 	  String name;
-	  String [] siblings;
-	  String [] cousins;
+	  ArrayList<Person> siblings;
+	  ArrayList<Person> uncles;
+	  ArrayList<Person> aunts;
+	  ArrayList<Person> cousins;
 	  Gender gender;
 	  int age;
+	  private static final long serialVersionUID = 1L;
 	
 public Gender getGender() {
 		return gender;
@@ -69,16 +73,28 @@ public Person(String name){
 	public Person getMother(){
 		return mother;
 	}
-	public String[] getSiblings() {
+	public ArrayList<Person> getSiblings() {
 		return siblings;
 	}
-	public void setSiblings(String[] siblings) {
+	public void setSiblings(ArrayList<Person> siblings) {
 		this.siblings = siblings;
 	}
-	public String[] getCousins() {
+	public ArrayList<Person> getCousins() {
 		return cousins;
 	}
-	public void setCousins(String[] cousins) {
+	public void setCousins(ArrayList<Person> cousins) {
 		this.cousins = cousins;
+	}
+	public ArrayList<Person> getUncles() {
+		return uncles;
+	}
+	public void setUncles(ArrayList<Person> uncles) {
+		this.uncles = uncles;
+	}
+	public ArrayList<Person> getAunts() {
+		return aunts;
+	}
+	public void setAunts(ArrayList<Person> aunts) {
+		this.aunts = aunts;
 	}
 }
