@@ -9,7 +9,10 @@ public class Person implements Serializable {
 	Person husband;
 	Person wife;
 	  String name;
-	  ArrayList<Person> siblings;
+	  Family family;
+	  ArrayList<Person> children=new ArrayList<>();
+	  
+	ArrayList<Person> siblings;
 	  ArrayList<Person> uncles;
 	  ArrayList<Person> aunts;
 	  ArrayList<Person> cousins;
@@ -17,6 +20,9 @@ public class Person implements Serializable {
 	  int age;
 	  private static final long serialVersionUID = 1L;
 	
+public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 public Gender getGender() {
 		return gender;
 	}
@@ -32,8 +38,9 @@ public void setAge(int age) {
 public Person(String name){
 		this.name=name;
 	}
-	public Person(String name,Person father, Person mother, Gender gender, Person husband, Person wife, int age){
+	public Person(String name,/*Family family,*/Person father, Person mother, Gender gender, Person husband, Person wife, int age){
 		this.name=name;
+	//	this.family=family;
 		this.father= father;
 		this.mother= mother;
 		this.husband = husband;
@@ -43,10 +50,18 @@ public Person(String name){
 	}
 	
 	public String getName(){
+		if(name!=null)
 		return name;
+		else return "NA";
 	}
 	public void setName(String name){
 		this.name=name;
+	}
+	public Family getFamily() {
+		return family;
+	}
+	public void setFamily(Family family) {
+		this.family = family;
 	}
 	public Person getHusband() {
 		return husband;
@@ -62,13 +77,16 @@ public Person(String name){
 	}
 	
 	public void setFather(Person father) {
+		
 		this.father = father;
 	}
 	public void setMother(Person mother) {
 		this.mother = mother;
 	}
 	public Person getFather(){
+		if (father!=null)
 		return father;
+		else return new Person("dont crash");
 	}
 	public Person getMother(){
 		return mother;
@@ -78,6 +96,12 @@ public Person(String name){
 	}
 	public void setSiblings(ArrayList<Person> siblings) {
 		this.siblings = siblings;
+	}
+	public ArrayList<Person> getChildren() {
+		return children;
+	}
+	public void addChildren(Person child) {
+		children.add(child);
 	}
 	public ArrayList<Person> getCousins() {
 		return cousins;

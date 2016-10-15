@@ -108,7 +108,7 @@ public class FamilyView {
 		
 		// container for txt 
 		VBox vbinput = new VBox();
-		vbinput.getChildren().addAll(txtArea, hbName,hbFamily,hbAge,hbFather,hbMother,hbGender,hbWife,hbHusband );
+		vbinput.getChildren().addAll(txtArea, hbName/*,hbFamily*/,hbAge,hbFather,hbMother,hbGender,hbWife,hbHusband );
 		
 		
 		// add stuff to root

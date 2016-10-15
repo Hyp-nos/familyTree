@@ -43,6 +43,11 @@ public class FamilyController {
 			model.loadPerson();
 		});
 		
+		view.btnSave.setOnAction(E-> {
+			model.db.showDb();
+		});
+		
+		
 	}
 
 	
