@@ -36,6 +36,11 @@ public class FamilyView {
 	 Button btnLoad;
 	 Button btnSave;
 	 Button btnDelete;
+	 Button btnShowData;
+	 Button btnShowGrandFather;
+	 Button btnShowGrandMother;
+	 Button btnShowSibilings;
+	 Button btnShowCousins;
 	 
 	
 	public FamilyView(Stage stage) {
@@ -50,10 +55,18 @@ public class FamilyView {
 		 btnLoad = new Button("Load person");
 		 btnSave = new Button("Save Person");
 		 btnDelete= new Button("Delete Person");
-		
+		 btnShowData= new Button("Show Database");
+		 btnShowGrandFather= new Button ("Show Grandpa");
+		 btnShowGrandMother = new Button("Show Grandma");
+		 btnShowSibilings= new Button("Show siblings");
+		 btnShowCousins= new Button("Show Cousins");
+		 
+		 
+		 
 		//containor for buttons
 		VBox vbButtons = new VBox();
-		vbButtons.getChildren().addAll(btnAdd,btnLoad,btnSave, btnDelete);
+	
+		vbButtons.getChildren().addAll(btnAdd,btnLoad,btnSave, btnDelete, btnShowData, new Label() , btnShowGrandFather, btnShowGrandMother, btnShowSibilings, btnShowCousins );
 		
 		//input fields
 		 txtName = new TextField();
@@ -111,6 +124,7 @@ public class FamilyView {
 		
 		// container for txt 
 		VBox vbinput = new VBox();
+		txtArea.setEditable(false);
 		vbinput.getChildren().addAll(txtArea, hbName/*,hbFamily*/,hbAge,hbFather,hbMother,hbGender,hbWife,hbHusband );
 		
 		
@@ -118,7 +132,7 @@ public class FamilyView {
 		root.setLeft(vbButtons);
 		root.setCenter(vbinput);
 		
-
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
 	}
 	

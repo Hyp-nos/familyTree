@@ -43,7 +43,8 @@ public class FamilyController {
 			model.loadPerson();
 		});
 		
-		view.btnSave.setOnAction(E-> {
+		view.btnShowData.setOnAction(E-> {
+			view.txtArea.appendText("Names in the Database: "+model.db.showDb());
 			model.db.showDb();
 		});
 		view.btnDelete.setOnAction(E-> {

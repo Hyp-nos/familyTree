@@ -38,11 +38,14 @@ public class Database {
 
 
 
-	public  void showDb() {
+	public  String showDb() {
+		String result="";
+		
 		for (Person p : db) {
 			
-			System.out.println( p.getName());
+			result += "\nName: "+p.getName();
 		}
+		return result+"\n --------------\n";
 	}
 
 	public  void saveDb() {
