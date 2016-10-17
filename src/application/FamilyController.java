@@ -46,6 +46,9 @@ public class FamilyController {
 		view.btnSave.setOnAction(E-> {
 			model.db.showDb();
 		});
+		view.btnDelete.setOnAction(E-> {
+			model.db.deletePerson(view.txtName.getText());
+		});
 		
 		
 	}

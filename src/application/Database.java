@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class Database {
 	private static final long serialVersionUID = 1L;
-	public  ArrayList<Person> db = new ArrayList<>();
-	
+	public static ArrayList<Person> db = new ArrayList<>();
+	Person personTemp = null;
 
 	public Database() {
 	
@@ -19,17 +19,21 @@ public class Database {
 	}
 
 	public  void addToDB(Person person) {
+		if(searchName(person.getName())){
+			System.out.println("the person is already in database");
+		} else
 		db.add(person);
 	}
 
 	public  Person getPerson(String p) {
-		Person person = null;
+		
 		for (int i = 0; i < db.size(); i++) {
-			if (db.get(i).getName().equalsIgnoreCase(p))
-				person = db.get(i);
+			if (db.get(i).getName().equalsIgnoreCase(p)){
+				personTemp = db.get(i);
+				}
 		}
 
-		return person;
+		return personTemp;
 	}
 
 
@@ -45,7 +49,7 @@ public class Database {
 		try {
 			FileOutputStream fos = new FileOutputStream("Database.db");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(db);
+			oos.writeUnshared(db);
 			oos.close();
 			System.out.println("Person is saved, supposly");
 		} catch (IOException e) {
@@ -85,17 +89,26 @@ public class Database {
 
 	public  boolean searchName(String name) {
 		boolean result = false;
-		Person p = new Person(name);
+
 		for (Person pp : db) {
-			if (p.getName().equalsIgnoreCase(pp.getName())) {
-				System.out.println("this name found  >>>"+pp.getName());
-				result = true;
+			if (name.equalsIgnoreCase(pp.getName())) {
+				System.out.println("this name found  >>>"+name);
+				result = true; break;
 			} else
 				result = false;
 
 		}
 		return result;
 
+	}
+
+	public void deletePerson(String name) {
+		for (Person pp: db){
+			if(name.equalsIgnoreCase(pp.getName())) {db.remove(pp); saveDb(); break;}
+			
+			
+		}
+		
 	}
 
 }

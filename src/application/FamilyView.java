@@ -35,6 +35,8 @@ public class FamilyView {
 	 Button btnAdd;
 	 Button btnLoad;
 	 Button btnSave;
+	 Button btnDelete;
+	 
 	
 	public FamilyView(Stage stage) {
 		this.stage = stage;
@@ -46,11 +48,12 @@ public class FamilyView {
 		//Buttons
 		 btnAdd = new Button("Add person");
 		 btnLoad = new Button("Load person");
-		 btnSave = new Button("Save Button");
+		 btnSave = new Button("Save Person");
+		 btnDelete= new Button("Delete Person");
 		
 		//containor for buttons
 		VBox vbButtons = new VBox();
-		vbButtons.getChildren().addAll(btnAdd,btnLoad,btnSave);
+		vbButtons.getChildren().addAll(btnAdd,btnLoad,btnSave, btnDelete);
 		
 		//input fields
 		 txtName = new TextField();
