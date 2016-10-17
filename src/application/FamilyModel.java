@@ -104,6 +104,7 @@ public class FamilyModel {
 	db.addToDB(wifeP);
 	db.addToDB(husbandP);
 	db.saveDb();
+	db.deletePerson("");
 
 	try
 
@@ -166,7 +167,7 @@ public class FamilyModel {
 
 	}
 
-	private void OpenFile(Person file) {
+	public void OpenFile(Person result) {
 
 		try {
 			view.txtArea.clear();
@@ -174,13 +175,36 @@ public class FamilyModel {
 
 					"Name: " + result.getName() + "\nAge: " + result.getAge() + "\nGender: " + result.getGender()
 							+ "\nFather Name: " + result.getFather().getName()
-			// +"Daughter: " + result.getD
+			 +"\nChildren: " + Person.loopArray(result.getChildren())
 
 			);
+			view.txtName.setText(result.getName());
+			view.txtAge.setText(String.valueOf(result.getAge()));
+			view.txtFather.setText(result.getFather().getName());
+			view.txtMother.setText(result.getMother().getName());
+			if (result.getHusband()!=null)
+			view.txtHusband.setText(result.getHusband().getName());
+			if(result.getWife()!=null)
+			view.txtWife.setText(result.getWife().getName());
+			
+			
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			System.out.println("smthin went wrong");
 		}
+	}
+
+	public Person ShowGrandpa(String name) {
+		
+		return ((db.getPerson(name)).getFather()).getFather();
+		
+	}
+public Person showGrandma(String name) {
+		try{
+		return (db.getPerson(name)).getMother().getMother();}
+		catch (Exception e){view.txtArea.appendText("This person has no grandma");}
+		return new Person("noooobody");
 	}
 
 }

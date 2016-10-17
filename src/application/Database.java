@@ -54,7 +54,7 @@ public class Database {
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeUnshared(db);
 			oos.close();
-			System.out.println("Person is saved, supposly");
+			System.out.println("changes are saved!");
 		} catch (IOException e) {
 
 			e.printStackTrace();

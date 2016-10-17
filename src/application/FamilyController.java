@@ -44,13 +44,19 @@ public class FamilyController {
 		});
 		
 		view.btnShowData.setOnAction(E-> {
+			view.txtArea.clear();
 			view.txtArea.appendText("Names in the Database: "+model.db.showDb());
 			model.db.showDb();
 		});
 		view.btnDelete.setOnAction(E-> {
 			model.db.deletePerson(view.txtName.getText());
 		});
-		
+		view.btnShowGrandFather.setOnAction(E->{
+			model.OpenFile(model.ShowGrandpa(view.txtName.getText()));
+		});
+		view.btnShowGrandMother.setOnAction(E->{
+			model.OpenFile(model.showGrandma((view.txtName.getText())));
+		});
 		
 	}
 

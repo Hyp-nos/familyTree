@@ -100,6 +100,17 @@ public Person(String name){
 	public ArrayList<Person> getChildren() {
 		return children;
 	}
+	public static String loopArray(ArrayList<Person> array){
+		String result ="\n";
+		for (Person p: array){
+			result += p.getName()+",  ";
+			
+		}
+		return result;
+		
+		
+		
+	}
 	public void addChildren(Person child) {
 		children.add(child);
 	}
