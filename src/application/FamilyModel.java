@@ -22,7 +22,7 @@ public class FamilyModel {
 	FileChooser fileChooser = new FileChooser();
 	Database db = new Database();
 	File selectedFile;
-	Person result;
+	Person result1;
 
 	public FamilyModel(FamilyView view) {
 		this.view = view;
@@ -148,10 +148,10 @@ public class FamilyModel {
 			if (selectedFile != null) {
 				FileInputStream fis = new FileInputStream(selectedFile.getName());
 				ObjectInputStream ois = new ObjectInputStream(fis);
-				result = (Person) ois.readObject();
+				result1 = (Person) ois.readObject();
 				ois.close();
 
-				OpenFile(result);
+				OpenFile(result1);
 
 			}
 		} catch (FileNotFoundException e1) {
@@ -189,7 +189,14 @@ public class FamilyModel {
 			
 			
 
-		} catch (Exception ex) {
+		}catch (NullPointerException ne){
+			System.out.println("Some data are missing");
+		}
+		
+		
+		
+		
+		catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println("smthin went wrong");
 		}
