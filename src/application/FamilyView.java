@@ -140,5 +140,9 @@ public class FamilyView {
 		stage.show();
 		
 	}
+	
+	public Stage getStage(){
+		return stage;
+	}
 
 }

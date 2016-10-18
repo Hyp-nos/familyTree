@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import com.sun.javafx.logging.Logger;
 
@@ -92,8 +93,7 @@ public class FamilyModel {
 			tempPerson.setWife(wifeP);
 			wifeP.setHusband(tempPerson);
 		}
-		motherP.addChildren(tempPerson);
-		fatherP.addChildren(tempPerson);
+		
 
 	System.out.println("finished ");
 	
@@ -101,17 +101,25 @@ public class FamilyModel {
 	db.addToDB(tempPerson);
 	db.addToDB(fatherP);
 	db.addToDB(motherP);
-	db.addToDB(wifeP);
-	db.addToDB(husbandP);
-	db.saveDb();
-	db.deletePerson("");
+	if(wifeP!=null){ db.addToDB(wifeP); savePersontoFile(wifeP);}
+	if(husbandP!=null){ db.addToDB(husbandP); savePersontoFile(husbandP);}
 
+	
+	db.deletePerson("NA");
+	savePersontoFile(tempPerson);
+	savePersontoFile(fatherP);
+	savePersontoFile(motherP);
+	db.saveDb();
+	
+	
+	}
+	public void savePersontoFile(Person tempPer){
 	try
 
 	{
-		FileOutputStream fos = new FileOutputStream(tempPerson.getName() + ".person");
+		FileOutputStream fos = new FileOutputStream(tempPer.getName() + ".person");
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(tempPerson);
+		oos.writeObject(tempPer);
 		oos.close();
 	}catch(
 	IOException e)
@@ -121,11 +129,6 @@ public class FamilyModel {
 	}
 
 	}
-
-	/*
-	 * private String checkifExist(String name) { Person return null; }
-	 */
-
 
 	public String updateViewAfterAdd() {
 		String result = null;
@@ -168,16 +171,30 @@ public class FamilyModel {
 	}
 
 	public void OpenFile(Person result) {
-
+		String kids="" ;
+		String spouse=result.getWife().getName() +result.getHusband().getName();
+		if (spouse.equalsIgnoreCase("")|| spouse.isEmpty()){ spouse="N/A";}
+		for (Person p: Database.db){
+		
+			if (p.getMother() != null && p.getFather() !=null)
+				if (p.getMother().getName().equalsIgnoreCase(result.getName())|| p.getFather().getName().equalsIgnoreCase(result.getName()))
+					
+					kids += p.getName()+", ";
+		 
+		}
 		try {
+			
+			
 			view.txtArea.clear();
 			view.txtArea.appendText(
 
 					"Name: " + result.getName() + "\nAge: " + result.getAge() + "\nGender: " + result.getGender()
-							+ "\nFather Name: " + result.getFather().getName()
-			 +"\nChildren: " + Person.loopArray(result.getChildren())
+							+ "\nFather: " + result.getFather().getName()+ "\nMother: "+result.getMother().getName()
+							+"\nSpouse: " + spouse
+			 +"\nChildren: " + kids
 
 			);
+		
 			view.txtName.setText(result.getName());
 			view.txtAge.setText(String.valueOf(result.getAge()));
 			view.txtFather.setText(result.getFather().getName());
@@ -202,16 +219,52 @@ public class FamilyModel {
 		}
 	}
 
-	public Person ShowGrandpa(String name) {
-		
-		return ((db.getPerson(name)).getFather()).getFather();
+	public ArrayList<Person> ShowGrandpa(String name) {
+		System.out.println("presenting the oldies... ");
+		ArrayList<Person> result= new ArrayList<>();
+		result.add(((db.getPerson(name)).getFather()).getFather());
+		result.add(((db.getPerson(name)).getMother()).getFather());
+		return result;
 		
 	}
-public Person showGrandma(String name) {
-		try{
-		return (db.getPerson(name)).getMother().getMother();}
-		catch (Exception e){view.txtArea.appendText("This person has no grandma");}
-		return new Person("noooobody");
+public ArrayList<Person> showGrandma(String name) {
+	System.out.println("presenting the Nannies... ");
+	 ArrayList<Person> result= new ArrayList<>();
+	 if (db.getPerson(name).getMother()!=null &&db.getPerson(name).getFather()!=null )
+		result.add(db.getPerson(name).getMother().getMother());
+		result.add(db.getPerson(name).getFather().getMother());
+		return result;
+			
 	}
+
+public ArrayList<Person> showSiblings(String name) {
+	System.out.println("presenting brothers and sisters... ");
+	ArrayList<Person> list = new ArrayList<>();
+	for (Person p: Database.db){
+		if (p.getFather()!=null && p!=db.getPerson(name)){
+			if (p.getFather().getName().equalsIgnoreCase(db.getPerson(name).getFather().getName()))
+				list.add(p);
+		}
+	}
+	return list;
+}
+
+public ArrayList<Person> showCousins(String name) {
+	System.out.println("presenting Cousins... ");
+	ArrayList<Person> list = new ArrayList<>();
+	for (Person p: Database.db){
+		if (!p.getName().equalsIgnoreCase(name)){
+		if (p.getFather()!=null && p.getMother()!=null&&p.getFather().getFather()!=null){
+			if ( p.getFather().getFather().getName().equalsIgnoreCase(db.getPerson(name).getFather().getFather().getName())||
+					(p.getMother().getMother().getName().equalsIgnoreCase(db.getPerson(name).getMother().getMother().getName()
+				))||(p.getFather().getFather().getName().equalsIgnoreCase(db.getPerson(name).getMother().getFather().getName())||
+						p.getMother().getFather().getName().equalsIgnoreCase(db.getPerson(name).getFather().getFather().getName())
+					
+					));
+				list.add(p);
+		}
+	}}
+	return list;
+}
 
 }

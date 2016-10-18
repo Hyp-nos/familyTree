@@ -20,6 +20,13 @@ public class FamilyController {
 			model.createPerson(view.txtName.getText(),view.txtFather.getText(),view.txtMother.getText(), 
 			 view.tg.getSelectedToggle().getUserData().toString(), view.txtHusband.getText(), view.txtWife.getText(), (Integer.parseInt(view.txtAge.getText())) );
 			view.txtArea.appendText(model.updateViewAfterAdd());
+			view.txtName.clear();
+			view.txtAge.clear();
+			view.txtFather.clear();
+			view.txtMother.clear();
+			view.txtWife.clear();
+			view.txtHusband.clear();
+			
 		});
 		// for Radio Buttons
 		view.tg.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
@@ -52,10 +59,33 @@ public class FamilyController {
 			model.db.deletePerson(view.txtName.getText());
 		});
 		view.btnShowGrandFather.setOnAction(E->{
-			model.OpenFile(model.ShowGrandpa(view.txtName.getText()));
+			view.txtArea.clear();
+			String user= view.txtName.getText();
+			view.txtArea.appendText("The Grandfathers of "+user+":");
+			view.txtArea.appendText(Person.loopArray(model.ShowGrandpa(view.txtName.getText())));
+			
 		});
 		view.btnShowGrandMother.setOnAction(E->{
-			model.OpenFile(model.showGrandma((view.txtName.getText())));
+			view.txtArea.clear();
+			String user= view.txtName.getText();
+			view.txtArea.appendText("The Grandmothers of "+user+":");
+			view.txtArea.appendText(Person.loopArray(model.showGrandma((view.txtName.getText()))));
+		});
+		view.btnShowSibilings.setOnAction(E->{
+			view.txtArea.clear();
+			String user= view.txtName.getText();
+			view.txtArea.appendText("The Siblings of "+user+":");
+			view.txtArea.appendText(Person.loopArray(model.showSiblings((view.txtName.getText()))));
+		});
+		view.getStage().setOnCloseRequest(e->{
+			model.db.saveDb();
+		});
+		
+		view.btnShowCousins.setOnAction(E->{
+			view.txtArea.clear();
+			String user= view.txtName.getText();
+			view.txtArea.appendText("The Cousins of "+user+":");
+			view.txtArea.appendText(Person.loopArray(model.showCousins((view.txtName.getText()))));
 		});
 		
 	}
