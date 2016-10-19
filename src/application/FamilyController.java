@@ -16,7 +16,7 @@ public class FamilyController {
 		
 		
 		view.btnAdd.setOnAction(e-> {
-			
+			try{
 			model.createPerson(view.txtName.getText(),view.txtFather.getText(),view.txtMother.getText(), 
 			 view.tg.getSelectedToggle().getUserData().toString(), view.txtHusband.getText(), view.txtWife.getText(), (Integer.parseInt(view.txtAge.getText())) );
 			view.txtArea.appendText(model.updateViewAfterAdd());
@@ -27,7 +27,11 @@ public class FamilyController {
 			view.txtWife.clear();
 			view.txtHusband.clear();
 			
-		});
+		}catch (Exception ee){
+			view.txtArea.setText("Why are you trying to add a person without filling all the data ? "
+					+ "\n are you trying to crash me ? ");
+		}}
+			);
 		// for Radio Buttons
 		view.tg.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
 			@Override
@@ -61,22 +65,38 @@ public class FamilyController {
 		view.btnShowGrandFather.setOnAction(E->{
 			view.txtArea.clear();
 			String user= view.txtName.getText();
+			if (user!=null){
 			view.txtArea.appendText("The Grandfathers of "+user+":");
+			try{
 			view.txtArea.appendText(Person.loopArray(model.ShowGrandpa(view.txtName.getText())));
-			
-		});
+			}catch (Exception e){
+				view.txtArea.setText("loading old people failed");
+			}
+			}});
 		view.btnShowGrandMother.setOnAction(E->{
 			view.txtArea.clear();
 			String user= view.txtName.getText();
+			if (user!=null){
 			view.txtArea.appendText("The Grandmothers of "+user+":");
+			try{
 			view.txtArea.appendText(Person.loopArray(model.showGrandma((view.txtName.getText()))));
-		});
+			}catch (Exception e){
+				view.txtArea.setText("You got no GrandMa Brah!");
+			}
+			}});
 		view.btnShowSibilings.setOnAction(E->{
 			view.txtArea.clear();
 			String user= view.txtName.getText();
+			if (user!=null){
+				System.out.println(user);
 			view.txtArea.appendText("The Siblings of "+user+":");
+			try{
 			view.txtArea.appendText(Person.loopArray(model.showSiblings((view.txtName.getText()))));
-		});
+			}catch (Exception e){
+				view.txtArea.setText("stop trying to crash me!! I WONT");
+			}
+			} else view.txtName.setText("please fill some data");
+			});
 		view.getStage().setOnCloseRequest(e->{
 			model.db.saveDb();
 		});
@@ -84,17 +104,22 @@ public class FamilyController {
 		view.btnShowCousins.setOnAction(E->{
 			view.txtArea.clear();
 			String user= view.txtName.getText();
+			if (user!=null){
 			view.txtArea.appendText("The Cousins of "+user+":");
+			try{
 			view.txtArea.appendText(Person.loopArray(model.showCousins((view.txtName.getText()))));
-		});
+			
+		}catch (Exception e){
+			view.txtArea.setText("loading old people failed");
+		}
 		
 	}
 
 	
 	
-
+		});
 	
-	
+	}
 	
 	
 	

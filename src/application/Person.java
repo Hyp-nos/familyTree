@@ -9,8 +9,6 @@ public class Person implements Serializable {
 	Person husband;
 	Person wife;
 	String name;
-	Family family;
-	
 
 	Gender gender;
 	int age;
@@ -63,14 +61,6 @@ public class Person implements Serializable {
 		this.name = name;
 	}
 
-	public Family getFamily() {
-		return family;
-	}
-
-	public void setFamily(Family family) {
-		this.family = family;
-	}
-
 	public Person getHusband() {
 		return husband;
 	}
@@ -104,20 +94,26 @@ public class Person implements Serializable {
 	}
 
 	public Person getMother() {
-		if(mother !=null)
-		return mother;
-		else return null;
+		if (mother != null)
+			return mother;
+		else
+			return null;
 	}
-
 
 	public static String loopArray(ArrayList<Person> array) {
 		String result = "\n";
+		try {
 		for (Person p : array) {
 			result += p.getName() + ",  ";
 
 		}
 		return result;
 
+	}catch	(Exception e)
+	{
+		System.out.println("Something went wrong during looping this array");
+	}
+		return null;
 	}
 
 }

@@ -7,15 +7,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
-
-import com.sun.javafx.logging.Logger;
-
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import sun.security.action.OpenFileInputStreamAction;
-import sun.util.logging.PlatformLogger.Level;
+
 
 public class FamilyModel {
 	FamilyView view;
@@ -124,7 +119,7 @@ public class FamilyModel {
 	}catch(
 	IOException e)
 	{
-
+		System.out.println("Something went wrong during saving this person");
 		e.printStackTrace();
 	}
 
@@ -158,7 +153,7 @@ public class FamilyModel {
 
 			}
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
+			System.out.println("File not found");
 			e1.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -220,12 +215,16 @@ public class FamilyModel {
 	}
 
 	public ArrayList<Person> ShowGrandpa(String name) {
+		try{
 		System.out.println("presenting the oldies... ");
 		ArrayList<Person> result= new ArrayList<>();
 		result.add(((db.getPerson(name)).getFather()).getFather());
 		result.add(((db.getPerson(name)).getMother()).getFather());
 		return result;
-		
+		}catch (Exception e){
+			System.out.println("There are no grandfathers for this person");
+		}
+		return null;
 	}
 public ArrayList<Person> showGrandma(String name) {
 	System.out.println("presenting the Nannies... ");

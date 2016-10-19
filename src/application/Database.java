@@ -27,14 +27,18 @@ public class Database {
 	}
 
 	public  Person getPerson(String p) {
-		
+		try{
 		for (int i = 0; i < db.size(); i++) {
 			if (db.get(i).getName().equalsIgnoreCase(p)){
 				personTemp = db.get(i);
 				}
 		}
 
-		return personTemp;
+		return personTemp;}
+		catch (Exception e){
+			System.out.println("Person not found");
+			return null;
+		}
 	}
 
 
