@@ -14,46 +14,43 @@ public class Database {
 	Person personTemp = null;
 
 	public Database() {
-	
 
 	}
 
-	public  void addToDB(Person person) {
-		if(searchName(person.getName())){
+	public void addToDB(Person person) {
+		if (searchName(person.getName())) {
 			System.out.println("the person is already in database");
 		} else
-		db.add(person);
-		
+			db.add(person);
+
 	}
 
-	public  Person getPerson(String p) {
-		try{
-		for (int i = 0; i < db.size(); i++) {
-			if (db.get(i).getName().equalsIgnoreCase(p)){
-				personTemp = db.get(i);
+	public Person getPerson(String p) {
+		try {
+			for (int i = 0; i < db.size(); i++) {
+				if (db.get(i).getName().equalsIgnoreCase(p)) {
+					personTemp = db.get(i);
 				}
-		}
+			}
 
-		return personTemp;}
-		catch (Exception e){
+			return personTemp;
+		} catch (Exception e) {
 			System.out.println("Person not found");
 			return null;
 		}
 	}
 
+	public String showDb() {
+		String result = "";
 
-
-	public  String showDb() {
-		String result="";
-		
 		for (Person p : db) {
-			
-			result += "\nName: "+p.getName();
+
+			result += "\nName: " + p.getName();
 		}
-		return result+"\n --------------\n";
+		return result + "\n --------------\n";
 	}
 
-	public  void saveDb() {
+	public void saveDb() {
 		try {
 			FileOutputStream fos = new FileOutputStream("Database.db");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -67,7 +64,7 @@ public class Database {
 
 	}
 
-	public  void loadDb() {
+	public void loadDb() {
 		try {
 
 			FileInputStream fis = new FileInputStream("Database.db");
@@ -80,29 +77,28 @@ public class Database {
 		} catch (FileNotFoundException e1) {
 			System.out.println("There was no database so we created one for you");
 			this.saveDb();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException e) {			
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
-	
 
 	}
 
-	private  void setDb(ArrayList<Person> result) {
+	private void setDb(ArrayList<Person> result) {
 		db = result;
 
 	}
 
-	public  boolean searchName(String name) {
+	public boolean searchName(String name) {
 		boolean result = false;
 
 		for (Person pp : db) {
 			if (name.equalsIgnoreCase(pp.getName())) {
-				System.out.println("this name found  >>>"+name);
-				result = true; break;
+				System.out.println("this name found  >>>" + name);
+				result = true;
+				break;
 			} else
 				result = false;
 
@@ -112,12 +108,15 @@ public class Database {
 	}
 
 	public void deletePerson(String name) {
-		for (Person pp: db){
-			if(name.equalsIgnoreCase(pp.getName())) {db.remove(pp); saveDb(); break;}
-			
-			
+		for (Person pp : db) {
+			if (name.equalsIgnoreCase(pp.getName())) {
+				db.remove(pp);
+				saveDb();
+				break;
+			}
+
 		}
-		
+
 	}
 
 }
