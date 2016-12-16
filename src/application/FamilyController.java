@@ -110,7 +110,7 @@ public class FamilyController {
 			view.txtArea.appendText(Person.loopArray(model.showCousins((view.txtName.getText()))));
 			
 		}catch (Exception e){
-			view.txtArea.setText("loading old people failed");
+			view.txtArea.setText("loading the cousins failed");
 		}
 		
 	}

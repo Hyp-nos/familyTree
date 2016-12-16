@@ -13,6 +13,18 @@ public class Person implements Serializable {
 	Gender gender;
 	int age;
 	private static final long serialVersionUID = 1L;
+	
+	public Person(String name, Person father, Person mother, Gender gender, Person husband,
+			Person wife, int age) {
+		
+		this.name = name;
+		this.father = father;
+		this.mother = mother;
+		this.husband = husband;
+		this.wife = wife;
+		this.age = age;
+		this.gender = gender;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -38,17 +50,7 @@ public class Person implements Serializable {
 		this.name = name;
 	}
 
-	public Person(String name, /* Family family, */Person father, Person mother, Gender gender, Person husband,
-			Person wife, int age) {
-		this.name = name;
-		// this.family=family;
-		this.father = father;
-		this.mother = mother;
-		this.husband = husband;
-		this.wife = wife;
-		this.age = age;
-		this.gender = gender;
-	}
+	
 
 	public String getName() {
 		if (name != null)
@@ -104,14 +106,16 @@ public class Person implements Serializable {
 		String result = "\n";
 		try {
 		for (Person p : array) {
+			if(p!=null){
 			result += p.getName() + ",  ";
-
+			}
 		}
 		return result;
 
 	}catch	(Exception e)
 	{
 		System.out.println("Something went wrong during looping this array");
+		e.printStackTrace();
 	}
 		return null;
 	}
